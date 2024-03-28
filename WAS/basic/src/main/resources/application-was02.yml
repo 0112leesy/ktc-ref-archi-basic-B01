@@ -1,0 +1,25 @@
+spring:
+  config:
+    activate:
+      on-profile: was02
+
+  application:
+    name: WAS02
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://${WAS_DB_URL}/basic?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&serverTimezone=Asia/Seoul
+    username: basicuser
+    password: ${WAS_DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.MariaDBDialect
+
+  logging:
+    level:
+      root: info

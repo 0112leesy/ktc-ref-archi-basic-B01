@@ -1,5 +1,6 @@
-package com.was.basic;
+package com.was.basic.repository;
 
+import com.was.basic.entity.ProductGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
