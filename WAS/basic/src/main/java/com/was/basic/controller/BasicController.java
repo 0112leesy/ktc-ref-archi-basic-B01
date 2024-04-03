@@ -1,7 +1,7 @@
 package com.was.basic.controller;
 
-import com.was.basic.dto.ProductDTO;
 import com.was.basic.dto.ProductGroupDTO;
+import com.was.basic.dto.ProductsByGroupIdDTO;
 import com.was.basic.service.BasicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,9 +35,14 @@ public class BasicController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity<List<ProductDTO>> getProductsByProductGroupId(@RequestParam Long productGroupId) {
-        List<ProductDTO> products = basicService.getProductsByProductGroupId(productGroupId);
+    public ResponseEntity<ProductsByGroupIdDTO> getProductsByProductGroupId(@RequestParam Long productGroupId) {
+        ProductsByGroupIdDTO products = basicService.getProductsByProductGroupId(productGroupId, appName);
         return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/logs/view-products")
+    public ResponseEntity<List<String>> getProductGroupLogs(@RequestParam String filename) {
+        return ResponseEntity.ok(basicService.getRecentLogs(filename));
     }
 
 }

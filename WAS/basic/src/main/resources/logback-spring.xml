@@ -1,0 +1,57 @@
+<configuration>
+
+    <springProfile name="default">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
+
+    <springProfile name="was01">
+        <!-- 일일 롤링 파일 앱 레벨 로그 설정 -->
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>/home/ubuntu/nas_log/was01-app.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- 매일 새로운 파일 생성 -->
+                <fileNamePattern>/nas_log/app.%d{yyyyMMdd}.log</fileNamePattern>
+                <!-- 이전 파일 보관 기간 (예: 최대 7일) -->
+                <maxHistory>7</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>%date{yyyyMMdd HH:mm:ss} %level - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <!-- 루트 로거 설정 -->
+        <root level="INFO">
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
+
+    <springProfile name="was02">
+        <!-- 일일 롤링 파일 앱 레벨 로그 설정 -->
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>/home/ubuntu/nas_log/was02-app.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- 매일 새로운 파일 생성 -->
+                <fileNamePattern>/nas_log/app.%d{yyyyMMdd}.log</fileNamePattern>
+                <!-- 이전 파일 보관 기간 (예: 최대 7일) -->
+                <maxHistory>7</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>%date{yyyyMMdd HH:mm:ss} %level - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <!-- 루트 로거 설정 -->
+        <root level="INFO">
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
+
+</configuration>
