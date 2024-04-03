@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        @media screen and (max-width: 600px) {
+            th, td {
+                display: block;
+                width: 100%;
+            }
+        }
+
+        .product-table {
+            max-height: 450px; /* 테이블의 최대 높이 */
+            overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤 표시 */
+        }
+
+        .manual-link-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+
+<style>
+    .banner-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .banner {
+        width: 400px; /* 배너의 너비 */
+        height: 200px; /* 배너의 높이 */
+        background-color: lightgray;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .content-disclaimer {
+        text-align: center;
+        font-size: 14px;
+        color: gray;
+    }
+
+    /* 미디어 쿼리: 화면 너비가 600px 이하일 때 스타일 적용 */
+    @media screen and (max-width: 900px) {
+        .banner {
+            width: 100%; /* 배너의 너비를 화면 전체로 설정 */
+        }
+    }
+</style>
+
+</head>
+<body style="display: flex; flex-direction: column; height: 120vh; margin: 0;">
+    <header class="header" style="flex: 15%; background-color: #fafafa; padding: 10px 20px 10px 20px; text-align: left;">
+        <div class="logo">
+            <img src="./images/CLOUD_LOGO.png" width="120" alt="Example Image">
+        </div>
+        <div class="title" style="font-family: Noto Sans; word-wrap: break-word; margin: 10px;">
+            <div style="color: #007AFF; font-size: 40px; font-weight: 600;">Reference Architecture Basic</div>
+            <div class="subtitle">
+                <div style="color: #6F6F6F; font-size: 18px; font-weight: 300;">This page is hosted on Web02</div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="content" style="flex: 70%; display: flex; padding: 10px 20px 10px 20px;">
+        <div style="flex: 7;">
+            <div class="heading" style="display: flex; flex-direction: row;">
+                <div class="title" style="color: black; font-size: 26px; font-family: Noto Sans; font-weight: 550; word-wrap: break-word; padding: 10px;">Get more information about</div>
+                <label for="product-groups"></label>
+
+                <select id="product-groups" style="border: none;font-size: 25px; font-family: Noto Sans; font-weight: 500; word-wrap: break-word; text-align: center;" name="product-groups">
+                </select>
+            </div>
+
+            <div class="subtitle">
+                <div id="web-server-info" style="color: #6F6F6F; font-size: 18px; font-weight: 300; padding-left: 10px;"></div>
+            </div>
+
+            <div class="product-table" style="margin-top: 20px;">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>상품명</th>
+                        <th>상품설명</th>
+                        <th>매뉴얼 링크</th>
+                    </tr>
+                    </thead>
+                    <tbody id="product-table-body">
+                    <!-- 추가 상품들 -->
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+
+        <div style="flex: 3;">
+            <div>
+                <div style="color: black; font-size: 26px; font-family: Noto Sans; font-weight: 550; word-wrap: break-word; padding: 10px; text-align: center;">What's New!</div>
+                <div class="subtitle">
+                    <div style="color: #6F6F6F; font-size: 18px; font-weight: 300; padding-left: 10px; text-align: center;">This content will be served via CDN</div>
+                </div>
+
+                <div class="banner-container" style="margin-top: 10px; padding-left: 20px;">
+                    <!-- 컨텐츠 준비 중 영역 -->
+                    <div class="banner" style="flex-direction: column; background-color:#fff; border: 1px solid #ddd; border-radius: 10px; padding: 10px;">
+                        <div style="color: #6F6F6F; font-size: 18px; font-weight: 300;">Preparing content</div>
+                    </div>
+                    <!-- 로그 영역 -->
+                    <div class="banner-container">
+                        <div class="banner" style="flex-direction: column; background-color:#fff; border: 1px solid #007AFF; border-radius: 10px; padding: 10px;">
+                            <div style="color: #6F6F6F; font-size: 18px; font-weight: 300; margin-bottom: 10px;">This logs are stored on NAS</div>
+                            <div id="log-messages" style="max-height: 200px; overflow-y: auto;"></div>
+                            <div class="buttons" style="flex-direction: row;">
+                                <!-- WAS01 log 버튼 -->
+                                <button id="was01-log-button" style="margin-top: 10px; padding: 5px 10px; background-color: #007AFF; color: white; border: none; border-radius: 5px; cursor: pointer;">WAS01 log</button>
+                                
+                                <!-- WAS02 log 버튼 -->
+                                <button id="was02-log-button" style="margin-top: 10px; padding: 5px 10px; background-color: #007AFF; color: white; border: none; border-radius: 5px; cursor: pointer;">WAS02 log</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <script>
+        // API 엔드포인트를 변수로 지정
+        const productGroupsUrl = '/api/product-groups';
+        const productsUrl = '/api/products';
+        const logUrl = '/api/logs/view-products'
+
+        // 선택한 Product Group에 해당하는 상품 데이터와 서버 이름을 가져오는 함수
+        function fetchProductsAndServerName(productGroupId) {
+            fetch(productsUrl + '?productGroupId=' + productGroupId)
+                .then(response => response.json())
+                .then(data => {
+                    // 상품 데이터를 HTML에 추가하는 함수 호출
+                    renderProductsAndServerName(data);
+                })
+                .catch(error => console.error('Error fetching products:', error));
+        }
+
+        // Product Group 목록을 가져오는 함수
+        function fetchProductGroups() {
+            fetch(productGroupsUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // API 응답 데이터를 이용하여 option 요소들을 생성하여 목록 창에 추가
+                    data.forEach(group => {
+                        const option = document.createElement("option");
+                        option.value = group.id;
+                        option.textContent = group.name;
+                        document.getElementById('product-groups').appendChild(option);
+                    });
+                    // 페이지 로드 시 초기 Product Group에 대한 상품 데이터를 가져와 테이블에 추가
+                    const defaultProductGroupId = data[0].id; // 기본적으로 첫 번째 Product Group 선택
+                    fetchProductsAndServerName(defaultProductGroupId);
+                })
+                .catch(error => console.error("Error fetching product groups:", error));
+        }
+
+        // 상품 데이터와 서버 이름을 HTML에 추가하는 함수
+        function renderProductsAndServerName(data) {
+            // 서버 이름을 표시
+            const webServerInfo = document.getElementById('web-server-info');
+            webServerInfo.textContent = `This data comes from ${data.appName}`;
+
+            // 상품 데이터를 HTML에 추가
+            renderProducts(data.data);
+        }
+
+        // 선택한 Product Group이 변경되었을 때 호출되는 함수
+        function handleProductGroupChange() {
+            const productGroupId = document.getElementById('product-groups').value;
+            fetchProductsAndServerName(productGroupId);
+        }
+
+        // 페이지 로드 시 초기 데이터 로딩
+        document.addEventListener('DOMContentLoaded', () => {
+            // 초기 데이터 로딩을 위해 Product Group 목록을 가져옵니다.
+            fetchProductGroups();
+
+            // Product Group 선택이 변경되었을 때 데이터를 다시 가져오는 이벤트 리스너 추가
+            document.getElementById('product-groups').addEventListener('change', handleProductGroupChange);
+        });
+
+        // 상품 데이터를 HTML에 추가하는 함수
+        function renderProducts(products) {
+            const tbody = document.getElementById('product-table-body');
+            tbody.innerHTML = ''; // 기존 내용을 지우고 새로운 데이터로 채웁니다.
+
+            products.forEach(product => {
+                const tr = document.createElement('tr');
+
+                const nameTd = document.createElement('td');
+                nameTd.textContent = product.name;
+                nameTd.style.textAlign = 'center';
+
+                const descriptionTd = document.createElement('td');
+                descriptionTd.textContent = product.description;
+                descriptionTd.style.textAlign = 'left';
+
+                const manualLinkTd = document.createElement('td');
+                const manualLinkButton = document.createElement('a');
+                manualLinkButton.href = product.manualLink;
+                manualLinkButton.textContent = '매뉴얼 보기';
+                manualLinkButton.className = 'manual-link-button';
+                manualLinkButton.style.textAlign = 'center';
+
+                manualLinkTd.appendChild(manualLinkButton);
+
+                tr.appendChild(nameTd);
+                tr.appendChild(descriptionTd);
+                tr.appendChild(manualLinkTd);
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // 로그 불러오기
+        function fetchLog(filename) {
+        const logMessages = document.getElementById('log-messages');
+        logMessages.innerHTML = ''; // 로그 내용 초기화
+        fetch(logUrl + '?filename=' + filename)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) {
+                    logMessages.textContent = '로그를 불러오지 못했습니다.';
+                } else {
+                    // 로그 불러오기 성공
+                    // 로그 영역을 배너에 추가
+                    data.forEach(log => {
+                        const parts = log.split(' ');
+                        const datetime = parts.slice(0, 2).join(' ');
+                        const message = parts.slice(2).join(' ');
+                        const logDiv = document.createElement('div');
+                        logDiv.style.marginBottom = '15px'; // 로그 간 간격 조정
+                        logDiv.innerHTML = `<span style="font-family: Arial, sans-serif; font-size: 14px; color: #00007D; font-weight: 600;">${datetime}</span><br>
+                                            <span style="font-family: Arial, sans-serif; font-size: 14px; color: black; font-weight: 500">${message}</span>`;
+                        logMessages.appendChild(logDiv); // 배너에 로그 추가
+                    });
+                }
+                // 배너 영역에 스크롤을 맨 아래로 이동
+                logMessages.scrollTop = logMessages.scrollHeight;
+            })
+            .catch(error => {
+                // 로그 불러오기 실패
+                logMessages.textContent = '로그를 불러오지 못했습니다.';
+                console.error('Error fetching logs:', error);
+            });
+        }
+
+        // WAS01 log 버튼 클릭 시 해당 로그 불러오기
+        document.getElementById('was01-log-button').addEventListener('click', () => {
+            fetchLog('was01-app.log');
+        });
+
+        // WAS02 log 버튼 클릭 시 해당 로그 불러오기
+        document.getElementById('was02-log-button').addEventListener('click', () => {
+            fetchLog('was02-app.log');
+        });
+
+        // 페이지 로드 시 초기 로그 불러오기
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchLog('was01-app.log'); // 초기 로드 시 WAS01 로그를 불러옴
+        });
+
+    </script>
+    
+    <footer class="footer" style="flex: 15%; background-color: #f1f1f1; padding: 40px 40px 20px 40px; text-align: left;">
+        <div class="title">
+            <div style="color: #00007D; font-size: 24px; font-family: Rubik; font-weight: 500; word-wrap: break-word;">Reference Architecture Basic Team</div>
+        </div>
+        <div class="contact" style="margin-top: 20px;">
+            <div class="title" style="color: #00007D; font-size: 16px; font-family: Poppins; font-weight: 600; word-wrap: break-word;">Contact us</div>
+            <div class="content" style="display: flex; justify-content: left; gap: 12px; margin-top: 15px; color: #353945; font-size: 15px; font-family: Lato; font-weight: 400; word-wrap: break-word;">
+                <div class="phone">+1-2345-6789</div>
+                <div class="email">RefArchi.basic@kt.com</div>
+                <div class="address">343 Gangnam The Pinnacle 4F</div>
+            </div>
+        </div>
+
+        <div class="service" style="margin-top: 20px;">
+            <div class="title" style="color: #00007D; font-size: 16px; font-family: Poppins; font-weight: 600; word-wrap: break-word;">Services</div>
+            <div class="content" style="display: flex; justify-content: left; gap: 12px; margin-top: 15px; color: #363940; font-size: 15px; font-family: Rubik; font-weight: 400; word-wrap: break-word;">
+                <div class="hybrid">Hybrid Cloud</div>
+                <div class="computing">Computing</div>
+                <div class="network">Network</div>
+                <div class="storage">Storage</div>
+                <div class="multi">Hybrid / Multi Cloud</div>
+            </div>
+        </div>
+
+        <div class="Copyright2020AlCopy" style="margin-top: 20px; text-align: right; color: #95A1BB; font-size: 14px; font-family: Rubik; font-weight: 400; line-height: 22px; word-wrap: break-word">Copyright © 2024. All rights reserved.</div>
+    </footer>
+</body>
+
+
+</html>
