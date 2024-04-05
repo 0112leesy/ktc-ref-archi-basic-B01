@@ -26,4 +26,7 @@ public class Product {
     @Column(name = "manual_link")
     private String manualLink;
 
+    @Column(name= "icon_image_url")
+    private String iconImageUrl;
+
 }

@@ -49,6 +49,7 @@ public class BasicService {
         return ProductsByGroupIdDTO.builder()
                 .appName(appName)
                 .data(products.stream()
+                        .filter(product -> product.getIconImageUrl() != null)
                         .map(this::convertToDTO)
                         .collect(Collectors.toList()))
                 .build();
@@ -60,6 +61,7 @@ public class BasicService {
                 .name(product.getName())
                 .description(product.getDescription())
                 .manualLink(product.getManualLink())
+                .iconImageUrl(product.getIconImageUrl())
                 .build();
     }
 
