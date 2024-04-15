@@ -62,6 +62,7 @@ public class BasicService {
                 .description(product.getDescription())
                 .manualLink(product.getManualLink())
                 .iconImageUrl(product.getIconImageUrl())
+                .iconImageCdnUrl(product.getIconImageCdnUrl())
                 .build();
     }
 

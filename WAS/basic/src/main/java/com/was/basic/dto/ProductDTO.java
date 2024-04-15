@@ -12,5 +12,6 @@ public class ProductDTO {
     private String description;
     private String manualLink;
     private String iconImageUrl;
+    private String iconImageCdnUrl;
 
 }
